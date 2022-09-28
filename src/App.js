@@ -47,7 +47,7 @@ function App() {
               <div className="container">
                 <div className="row">
                   {filmo.map((a, i) => {
-                    return <List filmo={filmo[i]} i={i} key={i}></List>;
+                    return <List filmo={filmo[i]} i={i + 1} key={i}></List>;
                   })}
                 </div>
               </div>
@@ -55,13 +55,13 @@ function App() {
                 onClick={() => {
                   axios
                     .get(
-                      "https://raw.githubusercontent.com/yurimpark/forjustin/main/data2.json?token=GHSAT0AAAAAABY5X3KOXRPWKSHCU2DHKB32YZT3UYQ"
+                      "https://raw.githubusercontent.com/yurimpark/forjustin/main/src/data2.json"
                     )
-                    .then((data) => {
-                      console.log(data);
-                      let newArray = [...filmo];
-                      newArray.push(data);
-                      setFilmo(newArray);
+                    .then((결과) => {
+                      console.log(data.data);
+                      console.log(filmo);
+                      let copy = [...filmo, ...결과.data];
+                      setFilmo(copy);
                     });
                 }}
               >
@@ -80,7 +80,16 @@ function App() {
 function List(props) {
   return (
     <div className="col-md-4">
-      <img src={props.src} alt="img" width="333px" height="498px" />
+      <img
+        src={
+          "https://github.com/yurimpark/forjustin/blob/main/src/img/filmo" +
+          props.i +
+          ".jpg?raw=true"
+        }
+        alt="img"
+        width="333px"
+        height="498px"
+      />
       <h4>{props.filmo.title}</h4>
       <p>{props.filmo.role}</p>
     </div>
