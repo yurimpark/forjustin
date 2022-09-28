@@ -1,23 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import "./App.css";
+import data from "./data";
+import { Route, Link, Routes, useNavigate, Outlet } from "react-router-dom";
+import Detail from "./routes/Detail";
+import axios from "axios";
 
 function App() {
+  let [filmo, setFilmo] = useState(data);
+  let navigate = useNavigate();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand
+            href="#home"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Justin H. Min
+          </Navbar.Brand>
+          <Nav className="me-auto">
+            {/* <Nav.Link href="#home">Home</Nav.Link> */}
+            <Nav.Link href="#biography">Biography</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/filmography");
+              }}
+            >
+              Filmography
+            </Nav.Link>
+            <Nav.Link href="#gallery">Gallery</Nav.Link>
+            <Nav.Link href="#awards">Awards</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+
+      <Routes>
+        <Route path="/" element={<div className="main-bg"></div>} />
+        <Route
+          path="/filmography"
+          element={
+            <div>
+              <div className="container">
+                <div className="row">
+                  {filmo.map((a, i) => {
+                    return <List filmo={filmo[i]} i={i} key={i}></List>;
+                  })}
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get(
+                      "https://raw.githubusercontent.com/yurimpark/forjustin/main/data2.json?token=GHSAT0AAAAAABY5X3KOXRPWKSHCU2DHKB32YZT3UYQ"
+                    )
+                    .then((data) => {
+                      console.log(data);
+                      let newArray = [...filmo];
+                      newArray.push(data);
+                      setFilmo(newArray);
+                    });
+                }}
+              >
+                버튼
+              </button>
+            </div>
+          }
+        />
+        <Route path="/detail/:id" element={<Detail filmo={filmo} />} />
+        <Route path="/about" element={<div>어바웃페이지임</div>} />
+      </Routes>
+    </div>
+  );
+}
+
+function List(props) {
+  return (
+    <div className="col-md-4">
+      <img src={props.src} alt="img" width="333px" height="498px" />
+      <h4>{props.filmo.title}</h4>
+      <p>{props.filmo.role}</p>
     </div>
   );
 }
