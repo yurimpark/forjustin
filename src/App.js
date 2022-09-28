@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import "./App.css";
 import data from "./data";
 import { Route, Link, Routes, useNavigate, Outlet } from "react-router-dom";
@@ -51,7 +52,8 @@ function App() {
                   })}
                 </div>
               </div>
-              <button
+              <Button
+                variant="outline-dark"
                 onClick={() => {
                   axios
                     .get(
@@ -65,8 +67,8 @@ function App() {
                     });
                 }}
               >
-                버튼
-              </button>
+                More
+              </Button>
             </div>
           }
         />
