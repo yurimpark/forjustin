@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "./App.css";
@@ -6,9 +6,14 @@ import data from "./data";
 import { Route, Link, Routes, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail";
 import axios from "axios";
+import Wish from "./routes/Wish";
+
+export let Context1 = createContext(); //state보관함
 
 function App() {
   let [filmo, setFilmo] = useState(data);
+  let [재고] = useState([10, 11, 12]);
+
   let navigate = useNavigate();
 
   return (
@@ -72,8 +77,15 @@ function App() {
             </div>
           }
         />
-        <Route path="/detail/:id" element={<Detail filmo={filmo} />} />
-        <Route path="/about" element={<div>어바웃페이지임</div>} />
+        <Route
+          path="/detail/:id"
+          element={
+            <Context1.Provider value={{ 재고 }}>
+              <Detail filmo={filmo} />
+            </Context1.Provider>
+          }
+        />
+        <Route path="/wish" element={<Wish />} />
       </Routes>
     </div>
   );

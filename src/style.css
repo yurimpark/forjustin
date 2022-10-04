@@ -1,0 +1,12 @@
+.button {
+  cursor: pointer;
+  transition: transform 300ms ease;
+  font-size: 30px;
+}
+.red {
+  color: red;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
