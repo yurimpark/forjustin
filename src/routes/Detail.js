@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Nav, TabContent } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
+import { addItem } from "../store";
+import { useDispatch } from "react-redux";
 
 import { Context1 } from "../App";
 import LikeButton from "../LikeButton";
@@ -12,6 +14,7 @@ function Detail(props) {
   let [alert, setAlert] = useState(true);
   let [num, setNum] = useState("");
   let [탭, 탭변경] = useState(0);
+  let dispatch = useDispatch();
 
   useEffect(() => {
     let a = setTimeout(() => {
@@ -48,6 +51,22 @@ function Detail(props) {
           <h5>{props.filmo[id].role}</h5>
           <p>{props.filmo[id].released}</p>
           <LikeButton></LikeButton>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(
+                addItem({
+                  id: props.filmo[id].id,
+                  title: props.filmo[id].title,
+                  role: props.filmo[id].role,
+                  released: props.filmo[id].released,
+                  count: 0,
+                })
+              );
+            }}
+          >
+            Wish
+          </button>
           <button className="btn btn-danger">Watch now</button>
         </div>
       </div>

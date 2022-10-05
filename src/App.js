@@ -21,16 +21,16 @@ function App() {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand
-            href="#home"
             onClick={() => {
               navigate("/");
             }}
+            href="/"
           >
             Justin H. Min
           </Navbar.Brand>
           <Nav className="me-auto">
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
-            <Nav.Link href="#biography">Biography</Nav.Link>
+            <Nav.Link href="biography">Biography</Nav.Link>
             <Nav.Link
               onClick={() => {
                 navigate("/filmography");
@@ -38,8 +38,16 @@ function App() {
             >
               Filmography
             </Nav.Link>
-            <Nav.Link href="#gallery">Gallery</Nav.Link>
-            <Nav.Link href="#awards">Awards</Nav.Link>
+            <Nav.Link href="gallery">Gallery</Nav.Link>
+            <Nav.Link href="awards">Awards</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/wish");
+              }}
+              // href="wish"
+            >
+              Wish
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

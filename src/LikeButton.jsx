@@ -1,6 +1,7 @@
 import React from "react";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import "./style.css";
+
 class LikeButton extends React.Component {
   state = {
     isChecked: false,
