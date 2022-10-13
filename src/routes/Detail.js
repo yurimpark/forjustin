@@ -9,12 +9,13 @@ import LikeButton from "../LikeButton";
 
 function Detail(props) {
   let { 재고 } = useContext(Context1);
-
   let { id } = useParams();
+
   let [alert, setAlert] = useState(true);
   let [num, setNum] = useState("");
   let [탭, 탭변경] = useState(0);
   let dispatch = useDispatch();
+  let foundFilmo = props.filmo.find((x) => x.id == id);
 
   useEffect(() => {
     let a = setTimeout(() => {
@@ -31,6 +32,15 @@ function Detail(props) {
     }
   });
 
+  useEffect(() => {
+    let arr = localStorage.getItem("watched");
+    arr = JSON.parse(arr);
+    arr.push(foundFilmo.id);
+    arr = new Set(arr);
+    arr = Array.from(arr);
+    localStorage.setItem("watched", JSON.stringify(arr));
+  }, []);
+
   return (
     <div className="container">
       {alert == true ? (
@@ -43,6 +53,7 @@ function Detail(props) {
         <div className="col-md-6">
           <img
             src="https://flxt.tmsimg.com/assets/p16091714_b_v13_aj.jpg"
+            alt="img"
             width="50%"
           />
         </div>

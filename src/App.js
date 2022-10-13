@@ -11,6 +11,11 @@ import Wish from "./routes/Wish";
 export let Context1 = createContext(); //state보관함
 
 function App() {
+  let obj = { name: "justin" };
+  localStorage.setItem("data", JSON.stringify(obj));
+  let 꺼낸거 = localStorage.getItem("data");
+  console.log(JSON.parse(꺼낸거).name);
+
   let [filmo, setFilmo] = useState(data);
   let [재고] = useState([10, 11, 12]);
 
